@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Minecraft Player Info</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #1e1e1e;
+            color: white;
+            padding-top: 40px;
+        }
+        img {
+            image-rendering: pixelated;
+        }
+        #container {
+            background: #2c2c2c;
+            padding: 20px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+<div id="container">
+    <h2 id="playerName">Loading...</h2>
+    <img id="playerHead" src="" alt="Player Head">
+</div>
+
+<script>
+    const uuid = "PLAYER_UUID_HERE"; // <-- PUT YOUR UUID HERE (no dashes)
+
+    // Mojang API to get username from UUID
+    fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
+        .then(response => response.json())
+        .then(data => {
+            const name = data.name;
+            document.getElementById("playerName").textContent = name;
+
+            // Use Crafatar API to show head
+            document.getElementById("playerHead").src =
+                `https://crafatar.com/avatars/${uuid}?size=200&overlay`;
+        })
+        .catch(error => {
+            document.getElementById("playerName").textContent = "Player not found";
+            console.error(error);
+        });
+</script>
+
+</body>
+</html>
