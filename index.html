@@ -1,53 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Minecraft Player Info</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background: #1e1e1e;
-            color: white;
-            padding-top: 40px;
-        }
-        img {
-            image-rendering: pixelated;
-        }
-        #container {
-            background: #2c2c2c;
-            padding: 20px;
-            border-radius: 10px;
-            display: inline-block;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Minecraft Player Head</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      text-align: center;
+      padding: 40px;
+    }
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+    img {
+      image-rendering: pixelated;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Minecraft Player Head</h1>
 
-<div id="container">
-    <h2 id="playerName">Loading...</h2>
-    <img id="playerHead" src="" alt="Player Head">
-</div>
+    <!-- Hard‑coded UUID (example UUID used here; you can change it) -->
+    <script>
+      const uuid = "f84c6a790a4e45c09617f1538bd34e9b"; // Example: Notch's UUID
+      const imgUrl = `https://minotar.net/helm/${uuid}/200.png`;
 
-<script>
-    const uuid = "11e9093e-c7f1-41cd-945b-fee11e335ec3"; // <-- PUT YOUR UUID HERE (no dashes)
+      window.onload = () => {
+        document.getElementById("head").src = imgUrl;
+      };
+    </script>
 
-    // Mojang API to get username from UUID
-    fetch(`https://sessionserver.mojang.com/session/minecraft/profile/${uuid}`)
-        .then(response => response.json())
-        .then(data => {
-            const name = data.name;
-            document.getElementById("playerName").textContent = name;
+    <img id="head" width="200" height="200" alt="Player Head" />
+    <p>Loaded from Minotar API using UUID:<br><strong id="uuid-display"></strong></p>
 
-            // Use Crafatar API to show head
-            document.getElementById("playerHead").src =
-                `https://minotar.net/helm/${uuid}/100.png`;
-        })
-        .catch(error => {
-            document.getElementById("playerName").textContent = "Player not found";
-            console.error(error);
-        });
-</script>
-
+    <script>
+      document.getElementById("uuid-display").textContent = uuid;
+    </script>
+  </div>
 </body>
 </html>
